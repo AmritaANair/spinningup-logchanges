@@ -15,6 +15,7 @@ import os.path as osp, time, atexit, os
 import warnings
 from spinup.utils.mpi_tools import proc_id, mpi_statistics_scalar
 from spinup.utils.serialization_utils import convert_json
+import datetime
 
 color2num = dict(
     gray=30,
@@ -96,7 +97,7 @@ class Logger:
                 should give them all the same ``exp_name``.)
         """
         if proc_id()==0:
-            self.output_dir = output_dir or "/content/gdrive/MyDrive/Reward Side Channels - Model Data/tmp/experiments/%i"%int(time.time())
+            self.output_dir = output_dir or "/content/gdrive/MyDrive/Reward Side Channels - Model Data/tmp/experiments/ppo-agent-results"+ datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             if osp.exists(self.output_dir):
                 print("Warning: Log dir %s already exists! Storing info there anyway."%self.output_dir)
             else:
