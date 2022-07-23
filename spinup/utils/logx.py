@@ -97,7 +97,7 @@ class Logger:
                 should give them all the same ``exp_name``.)
         """
         if proc_id()==0:
-            self.output_dir = output_dir or "/content/gdrive/MyDrive/Reward Side Channels - Model Data/tmp/experiments/ppo-agent-results"+ datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            self.output_dir = output_dir or "/content/gdrive/MyDrive/Reward Side Channels - Model Data/tmp/experiments/ppo-agent-results-ep-20-"+ datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             if osp.exists(self.output_dir):
                 print("Warning: Log dir %s already exists! Storing info there anyway."%self.output_dir)
             else:
