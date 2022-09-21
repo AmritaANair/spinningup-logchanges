@@ -116,6 +116,13 @@ def run_policy(env, get_action, max_ep_len=None, num_episodes=100, render=True):
 
     logger = EpochLogger()
     o, r, d, ep_ret, ep_len, n = env.reset(), 0, False, 0, 0, 0
+    var_val =  datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    filenew = os.makedirs('/content/gdrive/MyDrive/Reward Side Channels - Model Data/tmp/per_ep_experiments/ppo-agent-results-ep-20-'+ var_val)
+   # file_location = os.path.join(filenew, 'per_episode.txt')
+    file_location ='/content/gdrive/MyDrive/Reward Side Channels - Model Data/tmp/per_ep_experiments/ppo-agent-results-ep-20-'+ var_val+'/per_episode.txt'
+    f = open(file_location, "w")
+    f.write("Episode \t EpRet \t EpLen \n")
+    f.close()
     while n < num_episodes:
         if render:
             env.render()
@@ -129,6 +136,9 @@ def run_policy(env, get_action, max_ep_len=None, num_episodes=100, render=True):
         if d or (ep_len == max_ep_len):
             logger.store(EpRet=ep_ret, EpLen=ep_len)
             print('Episode %d \t EpRet %.3f \t EpLen %d'%(n, ep_ret, ep_len))
+            f = open(file_location, "a")
+            f.write(str(n) + "\t" + str(ep_ret) +"\t"+ str(ep_len) + "\n")
+            f.close()
             o, r, d, ep_ret, ep_len = env.reset(), 0, False, 0, 0
             n += 1
 
